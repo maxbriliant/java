@@ -49,8 +49,6 @@ public class Main {
 		}
 		
 		
-		
-		
 		//Open Bookmark File
 		File bmFile= new File(path_bookmarks);
 		bmFile.setWritable(false);
