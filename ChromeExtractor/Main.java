@@ -31,6 +31,8 @@ public class Main {
 		String user = System.getProperty("user.home");
 		String path_bookmarks;
 		
+		//Case OS
+		
 		if(System.getProperty("os.name").contains("Win")) {
 			path_bookmarks = appdata + "\\Google\\Chrome\\User Data\\Default\\Bookmarks";
 		}
@@ -41,7 +43,6 @@ public class Main {
 			path_bookmarks = user + "/.config/google-chrome/Default/Bookmarks";
 		}
 		
-		//using MacOS default (not tested yet)
 		else {
 			System.out.println(System.getProperty("os.name") + "Supported?\nCheck Paths");
 			path_bookmarks = "/Library/Application Support/Google/Chrome/Default/Bookmarks";
