@@ -44,7 +44,7 @@ public class Main {
 		}
 		
 		else {
-			System.out.println(System.getProperty("os.name") + "Supported?\nCheck Paths");
+			System.out.println(System.getProperty("os.name") + " Supported?\nCheck Paths");
 			path_bookmarks = "/Library/Application Support/Google/Chrome/Default/Bookmarks";
 		}
 		
