@@ -1,21 +1,24 @@
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import org.apache.commons.io.FileUtils;
 import java.io.IOException;
+import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.io.FileNotFoundException;
+import org.apache.commons.io.FileUtils;
+import javax.management.openmbean.OpenDataException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
 
-import javax.management.openmbean.OpenDataException;
-
+//MxBit2020
+//Nothing Fancy
+//Bookmarks Extract
 
 public class Main {
 
+	//Experimenting with Maps
 	static String data;
 	static HashMap<String, String> urlNameHash = new HashMap<String, String>();
 	
@@ -25,7 +28,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String appdata = System.getenv("LOCALAPPDATA");
-		String user    = System.getProperty("user.home");
+		String user = System.getProperty("user.home");
 		String path_bookmarks;
 		
 		if(System.getProperty("os.name").contains("Win")) {
@@ -38,7 +41,7 @@ public class Main {
 			path_bookmarks = user + "/.config/google-chrome/Default/Bookmarks";
 		}
 		
-		//using default macOS
+		//using MacOS default (not tested yet)
 		else {
 			System.out.println(System.getProperty("os.name") + "Supported?\nCheck Paths");
 			path_bookmarks = "/Library/Application Support/Google/Chrome/Default/Bookmarks";
@@ -47,7 +50,7 @@ public class Main {
 		
 		
 		
-		//OPEN Bookmarks
+		//Open Bookmark File
 		File bmFile= new File(path_bookmarks);
 		bmFile.setWritable(false);
 		
@@ -66,11 +69,11 @@ public class Main {
 			e.printStackTrace();
 		}
 			
-		//Create txt
+		//Create File
 		try {
-			File txtbm = new File("yourBookmarks");
-				if (txtbm.createNewFile()) {
-					System.out.println("File created: " + txtbm.getName());
+			File txt = new File("yourBookmarks");
+				if (txt.createNewFile()) {
+					System.out.println("File created: " + txt.getName());
 					} else 
 						System.out.println("File already exists.");
 					
@@ -78,12 +81,15 @@ public class Main {
 					System.out.println("An error occurred.");
 					ex.printStackTrace();
 			}
-						
+		
+		//Partioning Information on Useful Cuts
 		String[] dataArr = data.split("},|} ]," );
 		String[] newlineData = data.split("\n");
 		String name = null;
 		String url  = null;
 			
+		
+		//Cleaning Data
 		for (String block: dataArr ) {
 			if(block.contains("\"name\"") && !block.contains("\"folder\"")) {
 				
@@ -93,7 +99,8 @@ public class Main {
 						names.add(line);
 					}
 					else if(line.contains("url") && !line.contains("\"type\"")) {
-						url = line.trim();							urls.add(line);
+						url = line.trim();							
+						urls.add(line);
 						urlNameHash.put(name, url);
 					}
 				}
@@ -102,15 +109,17 @@ public class Main {
 			
 
 		try {
+			//Write in File using UTF-8 formating
 			OutputStreamWriter txtWriter = new OutputStreamWriter(new FileOutputStream("yourBookmarks", false), StandardCharsets.UTF_8);
 			
-			Set<String> keys = urlNameHash.keySet();
+			//Write Number of Bookmarks
 			int count = urlNameHash.size()/2;
-			
 			String counter = count + " Bookmarks in your Chrome\n";
 			System.out.println(counter);
 			txtWriter.write(counter+"\n");
 			
+			//Output
+			Set<String> keys = urlNameHash.keySet();
 			for(String key: keys) {
 				System.out.println(key+ "\n" + urlNameHash.get(key)+ "\n");
 				txtWriter.write(key+ "\n" + urlNameHash.get(key)+ "\n\n");
